@@ -1,0 +1,28 @@
+PODS:
+  - Log (1.0)
+  - RGPageViewController (1.0.0)
+  - RxCocoa (4.1.2):
+    - RxSwift (~> 4.0)
+  - RxSwift (4.1.2)
+  - SwiftyJSON (4.0.0)
+  - Unbox (2.5.0)
+
+DEPENDENCIES:
+  - Log
+  - RGPageViewController
+  - RxCocoa (~> 4.0)
+  - RxSwift (~> 4.0)
+  - SwiftyJSON (~> 4.0)
+  - Unbox
+
+SPEC CHECKSUMS:
+  Log: 5e368c9528db07517d18d2d04ff5fe2b6f5a1e21
+  RGPageViewController: bdbcd3a380407f7c1cd49bead33cc188a3787c97
+  RxCocoa: d88ba0f1f6abf040011a9eb4b539324fc426843a
+  RxSwift: e49536837d9901277638493ea537394d4b55f570
+  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
+  Unbox: 30e437e6151a6de16139375fd4e8dd9a664cfbf7
+
+PODFILE CHECKSUM: 5b6163a67c545fc2c7a07a7b62a2f6744308c0fa
+
+COCOAPODS: 1.4.0
