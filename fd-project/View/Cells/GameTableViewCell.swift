@@ -98,17 +98,19 @@ class GameTableViewCell: UITableViewCell {
             /* remove any previous; as they don't get deinit */
             self.viewWithTag(1)?.removeFromSuperview()
 
-            /* set triangle subview */
+            /* set triangle subview depending on scores */
             if (current_game.away_team_score! > current_game.home_team_score!) {
-                triangle = TriangleView(frame: CGRect(x: gameCenterView.frame.minX-15, y: gameCenterView.frame.midY-10, width: 15, height: 15))
+                triangle = TriangleView(frame: CGRect(x: gameCenterView.frame.minX-16, y: gameCenterView.frame.midY-8, width: 16, height: 16))
                 triangle.transform = CGAffineTransform(rotationAngle: 3*CGFloat.pi/2)
             } else {
-                triangle = TriangleView(frame: CGRect(x: gameCenterView.frame.maxX, y: gameCenterView.frame.midY-10, width: 15, height: 15))
+                triangle = TriangleView(frame: CGRect(x: gameCenterView.frame.maxX, y: gameCenterView.frame.midY-8, width: 16, height: 16))
                 triangle.transform = CGAffineTransform(rotationAngle: CGFloat.pi/2)
             }
+            /* triangle color inheritance */
             triangle.fillColor = self.gameCenterView.backgroundColor
             triangle.backgroundColor = self.backgroundColor
             triangle.tag = 1
+            
             self.addSubview(triangle)
             
             break
