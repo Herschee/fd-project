@@ -22,7 +22,7 @@ class MainViewController: RGPageViewController, RGPageViewControllerDataSource, 
         let dataService = DataService()
         
         let firstVC = GamesViewController(dataService: dataService)
-        let secondVC = StatsViewController()
+        let secondVC = StatsViewController(dataService: dataService)
         subviewControllers = [firstVC, secondVC]
         
         self.datasource = self

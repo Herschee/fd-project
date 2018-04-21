@@ -22,6 +22,7 @@ class DataService: NSObject {
     public var games: [Game] = []
     public var stats: [Stat] = []
     public var teams: [Team] = []
+    public var players: [Player]  = []
     public var game_states: [GameState] = []
     
     public var data_source: String!
@@ -40,8 +41,17 @@ class DataService: NSObject {
         return game_state!
     }
     
-    func loadStatsForPlayer(player_id: Int) {
+    func loadStatsForPlayer(id: Int) -> Stat {
         
+        var stat = stats.filter { $0.id == id }.first
+        let player = players.filter { $0.id == stat?.player_id }.first
+        let team = teams.filter { $0.id == player?.team_id }.first?.abbrev
+        
+        /* foreign */
+        stat?.player = player?.name
+        stat?.player_team = team
+        
+        return stat!
     }
     
     func parseData() {
@@ -59,6 +69,7 @@ class DataService: NSObject {
                 stats = try decoder.decode(StatResponseData.self, from: data).player_stats
                 teams = try decoder.decode(TeamResponseData.self, from: data).teams
                 game_states = try decoder.decode(GameStateResponseData.self, from: data).game_states
+                players = try decoder.decode(PlayerResponseData.self, from: data).players
             
             } catch {
                 print("error:\(error)")

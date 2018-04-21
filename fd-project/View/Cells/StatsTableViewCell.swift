@@ -10,6 +10,11 @@ import UIKit
 
 class StatsTableViewCell: UITableViewCell {
 
+    @IBOutlet var leftTopLabel: UILabel!
+    @IBOutlet var leftSubLabel: UILabel!
+    @IBOutlet var rightTopLabel: UILabel!
+    @IBOutlet var rightSubLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

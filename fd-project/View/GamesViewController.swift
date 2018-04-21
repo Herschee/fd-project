@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  GamesViewController
 //  fd-project
 //
 //  Created by Henry Wrightman on 4/17/18.
@@ -35,8 +35,7 @@ class GamesViewController: UIViewController {
         super.viewDidAppear(animated)
         
         self.viewModel.getGames {
-            
-            //3 -
+
             self.gamesTableView.reloadData()
         }
     }

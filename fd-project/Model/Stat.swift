@@ -22,5 +22,8 @@ public struct Stat: Decodable {
     public var assists: Int
     public var rebounds: Int
     public var nerd: Float
+    
+    public var player: String? = ""
+    public var player_team: String? = ""
 
 }

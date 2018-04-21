@@ -20,6 +20,8 @@ class GamesViewModel: NSObject {
     
         dataService.parseData()
         games = dataService.games
+        
+        completion()
     }
     
     func numberOfGamesToDisplay(in section: Int) -> Int {
