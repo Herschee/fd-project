@@ -12,7 +12,7 @@ import RxCocoa
 
 class StatsViewController: UIViewController {
     
-    //MARK: - Vars
+    // - MARK: Variables
     @IBOutlet var statsTableView: UITableView!
     var viewModel: StatsViewModel!
     
@@ -20,7 +20,7 @@ class StatsViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
     
-    //MARK: - Init
+    // - MARK: Init
     init(dataService: DataService) {
         super.init(nibName: "StatsView", bundle: nil)
         self.dataService = dataService
@@ -43,89 +43,44 @@ class StatsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.statsTableView.dataSource = self
+        view.accessibilityIdentifier = "statsView"
         
+        /* data source */
+        self.statsTableView.dataSource = self
         self.viewModel = StatsViewModel()
         
         statsTableView.register(UINib(nibName: "StatsTableViewCell", bundle: nil), forCellReuseIdentifier: "StatsTableViewCell")
     }
     
-    //MARK: - Private
-    
-    private func configureViewModel() {
-        //let refreshDriver = self.gamesTableView.refreshControl?.rx.controlEvent(.valueChanged).asDriver()
-        //self.viewModel = GamesViewModel(dataService: self.dataService, refreshDriver: refreshDriver!)
-    }
-    
-    private func configureBindings() {
-        
-    }
-    
-    func configureTableDataSource() {
-        //resultsTableView.register(UINib(nibName: "WikipediaSearchCell", bundle: nil), forCellReuseIdentifier: "WikipediaSearchCell")
-        
-        //resultsTableView.rowHeight = 194
-        //resultsTableView.hideEmptyCells()
-        
-        //dataService.fetchGameData()
-        //            .asDriver(onErrorJustReturn: [])
-        //            .drive(gamesTableView.rx.items(cellIdentifier: "Cell")) { (_, viewModel, cell) in
-        //                    cell.viewModel = viewModel
-        //                }
-        //                .disposed(by: disposeBag)
-        // This is for clarity only, don't use static dependencies
-        //        let API = DefaultWikipediaAPI.sharedAPI
-        //
-        //        let results = searchBar.rx.text.orEmpty
-        //            .asDriver()
-        //            .throttle(0.3)
-        //            .distinctUntilChanged()
-        //            .flatMapLatest { query in
-        //                API.getSearchResults(query)
-        //                    .retry(3)
-        //                    .retryOnBecomesReachable([], reachabilityService: Dependencies.sharedDependencies.reachabilityService)
-        //                    .startWith([]) // clears results on new search term
-        //                    .asDriver(onErrorJustReturn: [])
-        //            }
-        //            .map { results in
-        //                results.map(SearchResultViewModel.init)
-        //        }
-        //
-        //        results
-        //            .drive(resultsTableView.rx.items(cellIdentifier: "WikipediaSearchCell", cellType: WikipediaSearchCell.self)) { (_, viewModel, cell) in
-        //                cell.viewModel = viewModel
-        //            }
-        //            .disposed(by: disposeBag)
-        //
-        //        results
-        //            .map { $0.count != 0 }
-        //            .drive(self.emptyView.rx.isHidden)
-        //            .disposed(by: disposeBag)
-    }
-    
 }
 
+/* StatsTableView Data Source */
 extension StatsViewController: UITableViewDataSource {
     
+    /* numberOfRowsInSection */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.viewModel.numberOfStatsToDisplay(in: section)
     }
     
     /* cellForRowAt
-     * notes: here, we manange what cells are shown where depending on our expansion animation / state
-     * if expanded, show (2) HeaderViewCells
-     * if collapsed, show (1) HeaderViewCell and the remaining as BodyViewCells
+     *
+     * notes: acquires data via StatsViewModel, then populates the cell
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "StatsTableViewCell", for: indexPath) as! StatsTableViewCell
         
-        let current_stat = self.viewModel.loadStatDetails(for: indexPath)
+        /* load cell details */
+        let current_stat = self.viewModel.loadStatDetails(id: indexPath.row)
         
         cell.leftTopLabel?.text = self.viewModel.getLeftTopText()
         cell.leftSubLabel?.attributedText = self.viewModel.getLeftSubText()
         cell.rightTopLabel?.text = self.viewModel.getRightTopText()
         cell.rightSubLabel?.text = self.viewModel.getRightSubText()
+        
+        /* border */
+        cell.layer.borderWidth = CGFloat(1)
+        cell.layer.borderColor = statsTableView.backgroundColor?.cgColor
         
         return cell
     }

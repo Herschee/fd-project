@@ -8,6 +8,11 @@
 
 import Foundation
 
+/* Team
+ * TeamResponseData
+ *
+ * Structures for parsing each team
+ */
 struct TeamResponseData: Decodable {
     var teams: [Team]
 }

@@ -18,15 +18,18 @@ public enum T {
 
 class DataService: NSObject {
     
-    /* json variables from data source */
+    // - MARK: Variables
     public var games: [Game] = []
     public var stats: [Stat] = []
     public var teams: [Team] = []
     public var players: [Player]  = []
     public var game_states: [GameState] = []
     
-    public var data_source: String!
-    
+    /* loadDetailsForGame for game_id
+     * params: game_id (Int)
+     * returns: populated GameState struct
+     * notes:
+     */
     func loadDetailsForGame(game_id: Int) -> GameState {
         
         var game_state = game_states.filter { $0.game_id == game_id }.first
@@ -34,13 +37,23 @@ class DataService: NSObject {
         
         /* foreign */
         let home_team = teams.filter { $0.id == game?.home_team_id }.first?.name
+        let home_team_record = teams.filter { $0.id == game?.home_team_id }.first?.record
         let away_team = teams.filter { $0.id == game?.away_team_id }.first?.name
-        game_state?.home_team = home_team
-        game_state?.away_team = away_team
+        let away_team_record = teams.filter { $0.id == game?.away_team_id }.first?.record
+        
+        game_state?.home_team = home_team!
+        game_state?.home_team_record = home_team_record!
+        game_state?.away_team = away_team!
+        game_state?.away_team_record = away_team_record!
 
         return game_state!
     }
     
+    /* loadStatsForPlayer for id
+     * params: id (Int)
+     * returns: populated Stat struct
+     * notes:
+     */
     func loadStatsForPlayer(id: Int) -> Stat {
         
         var stat = stats.filter { $0.id == id }.first
@@ -48,16 +61,26 @@ class DataService: NSObject {
         let team = teams.filter { $0.id == player?.team_id }.first?.abbrev
         
         /* foreign */
-        stat?.player = player?.name
-        stat?.player_team = team
+        stat?.player = player!.name
+        stat?.player_team = team!
         
         return stat!
     }
     
-    func parseData() {
+    /* loadData: populates initial data query (it's static in this example)
+     * params:
+     * returns:
+     * notes:
+     */
+    func loadData() {
         loadJson(filename: "basketballData")
     }
     
+    /* loadJson from filename
+     * params: filename (String)
+     * returns:
+     * notes: populates our data structures from the respective json objects
+     */
     func loadJson(filename fileName: String) {
         
         if let url = Bundle.main.url(forResource: fileName, withExtension: "json") {
@@ -65,6 +88,7 @@ class DataService: NSObject {
                 let data = try Data(contentsOf: url)
                 let decoder = JSONDecoder()
                 
+                /* parse objects */
                 games = try decoder.decode(GameResponseData.self, from: data).games
                 stats = try decoder.decode(StatResponseData.self, from: data).player_stats
                 teams = try decoder.decode(TeamResponseData.self, from: data).teams
@@ -78,59 +102,3 @@ class DataService: NSObject {
 
     }
 }
-
-/*open func fetchGameData() -> Observable<[Game]> {
- let observable = Observable<[Game]>.create { [weak self] observer in
- if let _self = self {
- let time = 0.5 + TimeInterval(arc4random_uniform(10)) / 10.0
- 
- DispatchQueue.main.asyncAfter(deadline: .now() + time) {
- let shouldFail = arc4random_uniform(2) == 0
- if shouldFail {
- observer.onError(NSError(domain: "Example network failure.", code: 0, userInfo: nil))
- } else {
- observer.onNext(_self.parseData())
- observer.onCompleted()
- }
- }
- }
- 
- return Disposables.create()
- }
- 
- return observable.share(replay: 1)
- }*/
-
-/*func fetchAppList(completion: @escaping ([NSDictionary]?) -> Void) {
- //3 - unwrap our API endpoint
- guard let url = URL(string: "https://rss.itunes.apple.com/api/v1/us/ios-apps/top-free/100/explicit/json") else {
- print("Error unwrapping URL"); return }
- 
- //4 - create a session and dataTask on that session to get data/response/error
- let session = URLSession.shared
- let dataTask = session.dataTask(with: url) { (data, response, error) in
- 
- //5 - unwrap our returned data
- guard let unwrappedData = data else { print("Error getting data"); return }
- 
- do {
- //6 - create an object for our JSON data and cast it as a NSDictionary
- // .allowFragments specifies that the json parser should allow top-level objects that aren't NSArrays or NSDictionaries.
- if let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: .allowFragments) as? NSDictionary {
- 
- //7 - create an array of dictionaries from
- if let apps = responseJSON.value(forKeyPath: "feed.results") as? [NSDictionary] {
- 
- //8 - set the completion handler with our apps array of dictionaries
- completion(apps)
- }
- }
- } catch {
- //9 - if we have an error, set our completion with nil
- completion(nil)
- print("Error getting API data: \(error.localizedDescription)")
- }
- }
- //10 -
- dataTask.resume()
- }*/

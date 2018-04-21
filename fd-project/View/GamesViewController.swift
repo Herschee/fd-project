@@ -12,7 +12,7 @@ import RxCocoa
 
 class GamesViewController: UIViewController {
 
-    //MARK: - Vars
+    // - MARK: Variables
     @IBOutlet var gamesTableView: UITableView!
     var viewModel: GamesViewModel!
     
@@ -20,7 +20,10 @@ class GamesViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
     
-    //MARK: - Init
+    let cellSpacingHeight: CGFloat = 15
+
+    
+    // - MARK: Init
     init(dataService: DataService) {
         super.init(nibName: "GamesView", bundle: nil)
         self.dataService = dataService
@@ -42,69 +45,20 @@ class GamesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.accessibilityIdentifier = "gamesView"
 
+        /* data source & delegate */
         self.gamesTableView.dataSource = self
         
         self.viewModel = GamesViewModel()
         
         gamesTableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameTableViewCell")
     }
-    
-    //MARK: - Private
-    
-    private func configureViewModel() {
-        //let refreshDriver = self.gamesTableView.refreshControl?.rx.controlEvent(.valueChanged).asDriver()
-        //self.viewModel = GamesViewModel(dataService: self.dataService, refreshDriver: refreshDriver!)
-    }
-    
-    private func configureBindings() {
-
-    }
-    
-    func configureTableDataSource() {
-        //resultsTableView.register(UINib(nibName: "WikipediaSearchCell", bundle: nil), forCellReuseIdentifier: "WikipediaSearchCell")
-        
-        //resultsTableView.rowHeight = 194
-        //resultsTableView.hideEmptyCells()
-        
-        //dataService.fetchGameData()
-//            .asDriver(onErrorJustReturn: [])
-//            .drive(gamesTableView.rx.items(cellIdentifier: "Cell")) { (_, viewModel, cell) in
-//                    cell.viewModel = viewModel
-//                }
-//                .disposed(by: disposeBag)
-        // This is for clarity only, don't use static dependencies
-//        let API = DefaultWikipediaAPI.sharedAPI
-//
-//        let results = searchBar.rx.text.orEmpty
-//            .asDriver()
-//            .throttle(0.3)
-//            .distinctUntilChanged()
-//            .flatMapLatest { query in
-//                API.getSearchResults(query)
-//                    .retry(3)
-//                    .retryOnBecomesReachable([], reachabilityService: Dependencies.sharedDependencies.reachabilityService)
-//                    .startWith([]) // clears results on new search term
-//                    .asDriver(onErrorJustReturn: [])
-//            }
-//            .map { results in
-//                results.map(SearchResultViewModel.init)
-//        }
-//
-//        results
-//            .drive(resultsTableView.rx.items(cellIdentifier: "WikipediaSearchCell", cellType: WikipediaSearchCell.self)) { (_, viewModel, cell) in
-//                cell.viewModel = viewModel
-//            }
-//            .disposed(by: disposeBag)
-//
-//        results
-//            .map { $0.count != 0 }
-//            .drive(self.emptyView.rx.isHidden)
-//            .disposed(by: disposeBag)
-    }
 
 }
 
+/* GamesTableView Data Source */
 extension GamesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -112,28 +66,36 @@ extension GamesViewController: UITableViewDataSource {
     }
     
     /* cellForRowAt
-     * notes: here, we manange what cells are shown where depending on our expansion animation / state
-     * if expanded, show (2) HeaderViewCells
-     * if collapsed, show (1) HeaderViewCell and the remaining as BodyViewCells
+     *
+     * notes: acquires data via GamesViewModel, then populates the cell
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "GameTableViewCell", for: indexPath) as! GameTableViewCell
         
-        let current_game = self.viewModel.loadGameDetails(for: indexPath)
+        /* load cell details */
+        let current_game = self.viewModel.loadGameDetails(id: indexPath.row)
         
         cell.leftTeamLabel?.text = current_game.away_team
         cell.rightTeamLabel?.text = current_game.home_team
-        cell.leftScoreLabel?.text = current_game.away_team_score?.description
-        cell.rightScoreLabel?.text = current_game.home_team_score?.description
         
         if (current_game.game_status == "IN_PROGRESS") {
-            cell.quarterLabel?.text = current_game.quarter?.description
+            cell.leftScoreLabel?.text = current_game.away_team_score!.description
+            cell.rightScoreLabel?.text = current_game.home_team_score!.description
+            
+            cell.quarterLabel?.text = current_game.getQuarterFormatted()
             cell.timeLabel?.text = current_game.time_left_in_quarter
             cell.providerLabel?.text = current_game.broadcast
+            
+            cell.gameCenterView.backgroundColor = current_game.getGameStateColor()
         } else if (current_game.game_status == "SCHEDULED") {
             cell.timeLabel?.text = current_game.game_start
             cell.providerLabel?.text = current_game.broadcast
+            
+            cell.leftTeamRecordLabel.isHidden = false
+            cell.rightTeamRecordLabel.isHidden = false
+            cell.leftTeamRecordLabel?.text = current_game.away_team_record
+            cell.rightTeamRecordLabel?.text = current_game.home_team_record
         } else {
             cell.quarterLabel?.isHidden = true
             cell.timeLabel?.isHidden = true
@@ -141,7 +103,12 @@ extension GamesViewController: UITableViewDataSource {
             
             cell.stateLabel?.isHidden = false
             cell.stateLabel?.text = current_game.game_status
+            cell.gameCenterView.backgroundColor = current_game.getGameStateColor()
         }
+        
+        /* border */
+        cell.layer.borderWidth = CGFloat(5)
+        cell.layer.borderColor = gamesTableView.backgroundColor?.cgColor
 
         return cell
     }

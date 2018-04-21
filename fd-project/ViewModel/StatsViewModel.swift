@@ -12,36 +12,52 @@ import RxCocoa
 
 class StatsViewModel: NSObject {
     
-    //MARK: - Var
+    // - MARK: Variables
     var dataService = DataService()
     
     var stats: [Stat]?
     var current_stat: Stat!
     
+    /* getStats: aquires stats from data source to store locally for reference
+     * params: none
+     * returns: none
+     * notes:
+     */
     func getStats(completion: @escaping () -> Void) {
         
-        dataService.parseData()
+        dataService.loadData()
         stats = dataService.stats
         
         completion()
     }
     
+    /* numberOfStatsToDisplay:
+     * params: section: Int
+     * returns: number of stats
+     * notes:
+     */
     func numberOfStatsToDisplay(in section: Int) -> Int {
         return stats?.count ?? 0
     }
     
-    func loadStatDetails(for indexPath: IndexPath) -> Stat {
-        current_stat = dataService.loadStatsForPlayer(id: indexPath.row+1)
+    /* loadStatDetails: aquires single stat details by id
+     * params: id: Int
+     * returns: GameState of queried game id
+     * notes:
+     */
+    func loadStatDetails(id: Int) -> Stat {
+        current_stat = dataService.loadStatsForPlayer(id: id+1)
         return current_stat
     }
     
-    // - MARK: cell model
+    /* begin cell viewModel reference methods */
     func getLeftTopText() -> String {
         return self.current_stat.player! + " - " + self.current_stat.player_team!
     }
     
     func getLeftSubText() -> NSAttributedString {
-        var points = self.current_stat.points.description + " Pts, "
+        let points = self.current_stat.points.description + " Pts, "
+        
         /* bold points attributed */
         let attrs: [NSAttributedStringKey: Any] = [ .font: UIFont.boldSystemFont(ofSize: 14)]
         let attributedString = NSMutableAttributedString(string: points,

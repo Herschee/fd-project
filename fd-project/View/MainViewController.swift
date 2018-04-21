@@ -11,6 +11,7 @@ import RGPageViewController
 
 class MainViewController: RGPageViewController, RGPageViewControllerDataSource, RGPageViewControllerDelegate {
 
+    // - MARK: Variables
     var subviewControllers: [UIViewController] = []
     var tabTitles = ["Games", "Stats"]
     
@@ -21,6 +22,7 @@ class MainViewController: RGPageViewController, RGPageViewControllerDataSource, 
         
         let dataService = DataService()
         
+        /* init subviews */
         let firstVC = GamesViewController(dataService: dataService)
         let secondVC = StatsViewController(dataService: dataService)
         subviewControllers = [firstVC, secondVC]
@@ -33,21 +35,10 @@ class MainViewController: RGPageViewController, RGPageViewControllerDataSource, 
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
-//MARK: extension for Tabs
+// - MARK: extension for RGPageViewController
 extension MainViewController {
     
     // MARK: - RGPageViewController Data Source

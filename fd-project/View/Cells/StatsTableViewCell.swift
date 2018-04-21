@@ -10,6 +10,7 @@ import UIKit
 
 class StatsTableViewCell: UITableViewCell {
 
+    // - MARK: Variables
     @IBOutlet var leftTopLabel: UILabel!
     @IBOutlet var leftSubLabel: UILabel!
     @IBOutlet var rightTopLabel: UILabel!

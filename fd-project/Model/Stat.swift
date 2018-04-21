@@ -8,6 +8,11 @@
 
 import Foundation
 
+/* Stat
+ * StatResponseData
+ *
+ * Structures for parsing each player stat
+ */
 struct StatResponseData: Decodable {
     var player_stats: [Stat]
 }
@@ -23,6 +28,7 @@ public struct Stat: Decodable {
     public var rebounds: Int
     public var nerd: Float
     
+    /* foreign */
     public var player: String? = ""
     public var player_team: String? = ""
 

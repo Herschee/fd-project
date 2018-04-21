@@ -8,6 +8,11 @@
 
 import Foundation
 
+/* Game
+ * GameResponseData
+ *
+ * Structures for parsing each game
+ */
 struct GameResponseData: Decodable {
     var games: [Game]
 }
