@@ -20,11 +20,14 @@ class MainViewController: RGPageViewController, RGPageViewControllerDataSource, 
         
         view.accessibilityIdentifier = "mainView"
         
+        /* initializers */
         let dataService = DataService()
+        let gameViewModel = GamesViewModel()
+        let statViewModel = StatsViewModel()
         
         /* init subviews */
-        let firstVC = GamesViewController(dataService: dataService)
-        let secondVC = StatsViewController(dataService: dataService)
+        let firstVC = GamesViewController(dataService: dataService, viewModel: gameViewModel)
+        let secondVC = StatsViewController(dataService: dataService, viewModel: statViewModel)
         subviewControllers = [firstVC, secondVC]
         
         self.datasource = self

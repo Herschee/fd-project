@@ -23,14 +23,16 @@ class StatsTableViewCell: UITableViewCell {
         // Initialization code
     }
     
-    /* type visuals */
-    
+    /* border visuals */
     func setBorder(color: CGColor) {
         /* border */
         self.layer.borderWidth = CGFloat(1)
         self.layer.borderColor = color
     }
     
+    /* setModel: viewModel
+     * configures view label's from viewModel data source
+     */
     func setModel(viewModel: StatsViewModel) {
         self.leftTopLabel?.text = viewModel.getLeftTopText()
         self.leftSubLabel?.attributedText = viewModel.getLeftSubText()

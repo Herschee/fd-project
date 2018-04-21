@@ -17,6 +17,10 @@ class GamesViewModel: NSObject {
 
     var games: [Game]?
     
+    init() {
+        getGames()
+    }
+    
     /* getGames: aquires games from datasource
      * params: none
      * returns: none

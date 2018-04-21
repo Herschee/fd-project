@@ -21,9 +21,11 @@ class StatsViewController: UIViewController {
     private let disposeBag = DisposeBag()
     
     // - MARK: Init
-    init(dataService: DataService) {
+    init(dataService: DataService, viewModel: StatsViewModel) {
         super.init(nibName: "StatsView", bundle: nil)
+        
         self.dataService = dataService
+        self.viewModel = viewModel
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -47,7 +49,6 @@ class StatsViewController: UIViewController {
         
         /* data source */
         self.statsTableView.dataSource = self
-        self.viewModel = StatsViewModel()
         
         statsTableView.register(UINib(nibName: "StatsTableViewCell", bundle: nil), forCellReuseIdentifier: "StatsTableViewCell")
     }

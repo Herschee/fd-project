@@ -24,8 +24,10 @@ class GamesViewController: UIViewController {
 
     
     // - MARK: Init
-    init(dataService: DataService) {
+    init(dataService: DataService, viewModel: GamesViewModel) {
         super.init(nibName: "GamesView", bundle: nil)
+        
+        self.viewModel = viewModel
         self.dataService = dataService
     }
     
@@ -50,8 +52,6 @@ class GamesViewController: UIViewController {
 
         /* data source & delegate */
         self.gamesTableView.dataSource = self
-        
-        self.viewModel = GamesViewModel()
         
         gamesTableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameTableViewCell")
     }

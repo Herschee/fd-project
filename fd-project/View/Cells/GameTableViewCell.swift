@@ -48,8 +48,7 @@ class GameTableViewCell: UITableViewCell {
         
     }
     
-    /* type visuals */
-    
+    /* border visuals */
     func setBorder(color: UIColor) {
         
         /* border */
@@ -58,6 +57,9 @@ class GameTableViewCell: UITableViewCell {
 
     }
     
+    /* setModel: viewModel
+     * configures view label's from viewModel data source
+     */
     func setModel() {
         self.leftTeamLabel?.text = current_game.away_team
         self.rightTeamLabel?.text = current_game.home_team
@@ -92,6 +94,10 @@ class GameTableViewCell: UITableViewCell {
         }
     }
     
+    /* setType: adjust cell view / attributes depending on game_state
+     *
+     * notes: handles pointing triangle for current games; show/hide respective labels
+     */
     func setType(type: type) {
         switch type {
         case .current:
@@ -138,6 +144,9 @@ class GameTableViewCell: UITableViewCell {
     
 }
 
+/* TriangleView
+ * subview for the triangle pointer (toward winning team in GameTableViewCell
+ */
 class TriangleView : UIView {
     var _color: UIColor! = UIColor.blue
     var _margin: CGFloat! = 0
