@@ -64,23 +64,18 @@ extension StatsViewController: UITableViewDataSource {
     
     /* cellForRowAt
      *
-     * notes: acquires data via StatsViewModel, then populates the cell
+     * notes: cell handles data & layout via viewModel
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "StatsTableViewCell", for: indexPath) as! StatsTableViewCell
         
         /* load cell details */
-        let current_stat = self.viewModel.loadStatDetails(id: indexPath.row)
+        cell.current_stat = self.viewModel.loadStatDetails(id: indexPath.row)
+        cell.setBorder(color: self.statsTableView.backgroundColor!.cgColor)
         
-        cell.leftTopLabel?.text = self.viewModel.getLeftTopText()
-        cell.leftSubLabel?.attributedText = self.viewModel.getLeftSubText()
-        cell.rightTopLabel?.text = self.viewModel.getRightTopText()
-        cell.rightSubLabel?.text = self.viewModel.getRightSubText()
-        
-        /* border */
-        cell.layer.borderWidth = CGFloat(1)
-        cell.layer.borderColor = statsTableView.backgroundColor?.cgColor
+        /* set model */
+        cell.setModel(viewModel: self.viewModel)
         
         return cell
     }
