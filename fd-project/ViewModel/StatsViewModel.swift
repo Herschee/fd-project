@@ -40,17 +40,19 @@ class StatsViewModel: NSObject {
         return self.current_stat.player! + " - " + self.current_stat.player_team!
     }
     
-    func getLeftSubText() -> String {
-        var points = self.current_stat.points.description
-        let label = UILabel()
+    func getLeftSubText() -> NSAttributedString {
+        var points = self.current_stat.points.description + " Pts, "
+        /* bold points attributed */
+        let attrs: [NSAttributedStringKey: Any] = [ .font: UIFont.boldSystemFont(ofSize: 14)]
+        let attributedString = NSMutableAttributedString(string: points,
+                                                         attributes: attrs)
+        /* suffix (assists/rebounds) non attributed */
+        let suff = current_stat.assists.description + " Ast, " + self.current_stat.rebounds.description + " Reb"
+        let normalString = NSMutableAttributedString(string: suff)
         
-        let labelFont = UIFont.boldSystemFont(ofSize: 13.0)
-        let labelAttr: [NSAttributedStringKey: Any] = [ .font: labelFont]
-        let attrString = NSAttributedString(string: points, attributes: labelAttr)
+        attributedString.append(normalString)
 
-        label.attributedText = attrString
-        
-        return label.text! + ", " + current_stat.assists.description + ", " + self.current_stat.rebounds.description
+        return attributedString
     }
     
     func getRightTopText() -> String {
@@ -58,7 +60,14 @@ class StatsViewModel: NSObject {
     }
     
     func getRightSubText() -> String {
-        return self.current_stat.nerd.description
+        return self.current_stat.nerd.clean
     }
     
+}
+
+/* Float extension to clean .0 from whole floats */
+extension Float {
+    var clean: String {
+        return self.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(format: "%.2f", self) // truncate decimal remainder if whole number
+    }
 }

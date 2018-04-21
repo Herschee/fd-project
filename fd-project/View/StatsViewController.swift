@@ -123,7 +123,7 @@ extension StatsViewController: UITableViewDataSource {
         let current_stat = self.viewModel.loadStatDetails(for: indexPath)
         
         cell.leftTopLabel?.text = self.viewModel.getLeftTopText()
-        cell.leftSubLabel?.text = self.viewModel.getLeftSubText()
+        cell.leftSubLabel?.attributedText = self.viewModel.getLeftSubText()
         cell.rightTopLabel?.text = self.viewModel.getRightTopText()
         cell.rightSubLabel?.text = self.viewModel.getRightSubText()
         
