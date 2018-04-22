@@ -8,6 +8,7 @@
 
 import UIKit
 import RGPageViewController
+import Log
 
 class MainViewController: RGPageViewController, RGPageViewControllerDataSource, RGPageViewControllerDelegate {
 
@@ -15,9 +16,30 @@ class MainViewController: RGPageViewController, RGPageViewControllerDataSource, 
     var subviewControllers: [UIViewController] = []
     var tabTitles = ["Games", "Stats"]
     
+    var dataService: DataService!
+    
+    let log = Logger()
+    
+    init(dataService: DataService) {
+        super.init(nibName: "MainViewController", bundle: nil)
+        
+        log.debug("MainControllerView: init")
+        
+        self.dataService = dataService
+        
+        log.debug("MainControllerView: init complete")
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        log.debug("MainViewController: viewDidLoad()")
+
         view.accessibilityIdentifier = "mainView"
         
         /* initializers */
@@ -32,6 +54,8 @@ class MainViewController: RGPageViewController, RGPageViewControllerDataSource, 
         
         self.datasource = self
         self.delegate = self
+        
+        log.debug("MainViewController: viewDidLoad(): complete")
     }
 
     override func didReceiveMemoryWarning() {

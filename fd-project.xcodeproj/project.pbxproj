@@ -31,7 +31,6 @@
 		BACC3EA220883D0E00E52092 /* StatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACC3EA120883D0E00E52092 /* StatsViewModel.swift */; };
 		BACC3EA5208942E600E52092 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACC3EA3208942E500E52092 /* MainViewController.swift */; };
 		BACC3EA6208942E600E52092 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BACC3EA4208942E600E52092 /* MainViewController.xib */; };
-		BACC3EAC208976D200E52092 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BACC3EAA208976D100E52092 /* Main.storyboard */; };
 		BACC3EB4208A6A0B00E52092 /* StatsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACC3EB2208A6A0B00E52092 /* StatsTableViewCell.swift */; };
 		BACC3EB5208A6A0B00E52092 /* StatsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BACC3EB3208A6A0B00E52092 /* StatsTableViewCell.xib */; };
 		BACC3EB8208A6A1D00E52092 /* GameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACC3EB6208A6A1D00E52092 /* GameTableViewCell.swift */; };
@@ -89,7 +88,6 @@
 		BACC3EA120883D0E00E52092 /* StatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewModel.swift; sourceTree = "<group>"; };
 		BACC3EA3208942E500E52092 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		BACC3EA4208942E600E52092 /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
-		BACC3EAB208976D100E52092 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BACC3EB2208A6A0B00E52092 /* StatsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StatsTableViewCell.swift; path = "fd-project/View/Cells/StatsTableViewCell.swift"; sourceTree = SOURCE_ROOT; };
 		BACC3EB3208A6A0B00E52092 /* StatsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = StatsTableViewCell.xib; path = "fd-project/View/Cells/StatsTableViewCell.xib"; sourceTree = SOURCE_ROOT; };
 		BACC3EB6208A6A1D00E52092 /* GameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameTableViewCell.swift; path = "fd-project/View/Cells/GameTableViewCell.swift"; sourceTree = SOURCE_ROOT; };
@@ -153,7 +151,6 @@
 		BA3D83DA2087EB1500748318 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				BACC3EAA208976D100E52092 /* Main.storyboard */,
 				BACC3E9B2088355D00E52092 /* GamesViewController.swift */,
 				BACC3E9420882F1400E52092 /* GamesView.xib */,
 				BACC3E9D20883C5B00E52092 /* StatsViewController.swift */,
@@ -370,7 +367,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BACC3EB5208A6A0B00E52092 /* StatsTableViewCell.xib in Resources */,
-				BACC3EAC208976D200E52092 /* Main.storyboard in Resources */,
 				BAB3A2702086BEA80038BE2F /* LaunchScreen.storyboard in Resources */,
 				BACC3E9520882F1400E52092 /* GamesView.xib in Resources */,
 				BAB3A26D2086BEA80038BE2F /* Assets.xcassets in Resources */,
@@ -427,8 +423,6 @@
 				"${BUILT_PRODUCTS_DIR}/RGPageViewController/RGPageViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
-				"${BUILT_PRODUCTS_DIR}/Unbox/Unbox.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -436,8 +430,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RGPageViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Unbox.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -621,14 +613,6 @@
 				BAB3A26F2086BEA80038BE2F /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		BACC3EAA208976D100E52092 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BACC3EAB208976D100E52092 /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

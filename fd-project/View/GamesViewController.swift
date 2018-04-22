@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Log
 
 class GamesViewController: UIViewController {
 
@@ -20,13 +21,18 @@ class GamesViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
     
+    let log = Logger()
     
     // - MARK: Init
     init(dataService: DataService, viewModel: GamesViewModel) {
         super.init(nibName: "GamesView", bundle: nil)
         
+        log.debug("GamesViewController: init")
+        
         self.viewModel = viewModel
         self.dataService = dataService
+        
+        log.debug("GamesViewController: init complete")
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -38,6 +44,7 @@ class GamesViewController: UIViewController {
         super.viewDidAppear(animated)
         
         self.viewModel.getGames {
+            self.log.debug("GamesViewController: loaded \(self.viewModel.games.count) games")
             self.gamesTableView.reloadData()
         }
     }
@@ -45,12 +52,16 @@ class GamesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        log.debug("GamesViewController: viewDidLoad()")
+
         view.accessibilityIdentifier = "gamesView"
         
         /* rx bind to data source */
         self.bindToDataSource()
         
         gamesTableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameTableViewCell")
+        
+        log.debug("GamesViewController: viewDidLoad() completed")
     }
     
     /* bindToDataSource: data source binding via rxSwift
@@ -58,6 +69,8 @@ class GamesViewController: UIViewController {
      * notes: observing games_rx ([GameStates])
      */
     func bindToDataSource () {
+        log.debug("GamesViewController: bindToDataSource()")
+
         self.viewModel.games_rx.asObservable()
             .bind(to: gamesTableView.rx.items(cellIdentifier: GameTableViewCell.Identifier, cellType: GameTableViewCell.self)) { row, gameModel, cell in
                 

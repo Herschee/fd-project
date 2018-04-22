@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Log
 
 class StatsViewController: UIViewController {
     
@@ -20,12 +21,18 @@ class StatsViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
     
+    let log = Logger()
+    
     // - MARK: Init
     init(dataService: DataService, viewModel: StatsViewModel) {
         super.init(nibName: "StatsView", bundle: nil)
         
+        log.debug("StatsViewController: init")
+        
         self.dataService = dataService
         self.viewModel = viewModel
+        
+        log.debug("StatsViewController: init complete")
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -37,7 +44,7 @@ class StatsViewController: UIViewController {
         super.viewDidAppear(animated)
                 
         self.viewModel.getStats {
-
+            self.log.debug("StatsViewController: loaded \(self.viewModel.stats.count) stats")
             self.statsTableView.reloadData()
         }
     }
@@ -45,12 +52,15 @@ class StatsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        log.debug("StatsViewController: viewDidLoad()")
         view.accessibilityIdentifier = "statsView"
         
         /* rx bind to data source */
         self.bindToDataSource()
 
         statsTableView.register(UINib(nibName: "StatsTableViewCell", bundle: nil), forCellReuseIdentifier: "StatsTableViewCell")
+        
+        log.debug("StatsViewController: viewDidLoad() completed.")
     }
     
     /* bindToDataSource: data source binding via rxSwift
@@ -58,6 +68,8 @@ class StatsViewController: UIViewController {
      * notes: observing stats_rx ([Stats])
      */
     func bindToDataSource () {
+        log.debug("StatsViewController: bindToDataSource()")
+
         self.viewModel.stats_rx.asObservable()
             .bind(to: statsTableView.rx.items(cellIdentifier: StatsTableViewCell.Identifier, cellType: StatsTableViewCell.self)) { row, statModel, cell in
                 

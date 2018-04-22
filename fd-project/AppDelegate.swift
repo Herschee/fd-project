@@ -8,22 +8,26 @@
 
 import UIKit
 import CoreData
+import Log
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    let log = Logger()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
         /* initialize data service */
-//        let dataService = DataService()
-//
-//        /* let's begin -> initialize Root Controller */
-//        self.window = UIWindow(frame: UIScreen.main.bounds)
-//        self.window?.rootViewController = MainViewController()
-//        self.window?.makeKeyAndVisible()
+        log.debug("AppDelegate: dataService init")
+        let dataService = DataService()
+
+        log.debug("AppDelegate: MainView init")
+        /* let's begin -> initialize Root Controller */
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window?.rootViewController = MainViewController(dataService: dataService)
+        self.window?.makeKeyAndVisible()
         
         return true
     }

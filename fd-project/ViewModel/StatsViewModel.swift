@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import Log
 
 class StatsViewModel: NSObject {
     
@@ -20,11 +21,14 @@ class StatsViewModel: NSObject {
     
     var current_stat: Stat!
     
+    let log = Logger()
+    
     /* init */
     override init() {
         super.init()
         
         getStats {
+            self.log.debug("StatsViewModel: getStats()")
             self.stats_rx.value = self.stats
         }
     }
@@ -36,9 +40,12 @@ class StatsViewModel: NSObject {
      */
     func getStats(completion: @escaping () -> Void) {
         
+        log.debug("StatsViewModel: getStats()")
+
         dataService.loadData()
         stats = dataService.stats.map { self.dataService.loadStatsForPlayer(id: $0.id) }
 
+        log.debug("StatsViewModel: getStats() completion stats: \(stats.count)")
         completion()
     }
     
