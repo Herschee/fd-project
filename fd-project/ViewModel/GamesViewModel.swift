@@ -39,22 +39,4 @@ class GamesViewModel: NSObject {
         completion()
     }
     
-    /* numberOfGamesToDisplay
-     * params: section: Int
-     * returns: number of games
-     * notes:
-     */
-    func numberOfGamesToDisplay(in section: Int) -> Int {
-        return games?.count ?? 0
-    }
-    
-    /* loadGameDetails: aquires single game details by id
-     * params: id: Int
-     * returns: GameState of queried game id
-     * notes: 
-     */
-    func loadGameDetails(id: Int) -> GameState {
-        return dataService.loadDetailsForGame(game_id: id+1) //offset 0 based index for id
-    }
-    
 }

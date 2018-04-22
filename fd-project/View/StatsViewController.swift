@@ -47,9 +47,6 @@ class StatsViewController: UIViewController {
         
         view.accessibilityIdentifier = "statsView"
         
-        /* data source */
-        //self.statsTableView.dataSource = self
-        
         /* rx bind to data source */
         self.bindToDataSource()
 
@@ -70,32 +67,4 @@ class StatsViewController: UIViewController {
             }.disposed(by: disposeBag)
     }
 }
-
-/* StatsTableView Data Source */
-//extension StatsViewController: UITableViewDataSource {
-//
-//    /* numberOfRowsInSection */
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return self.viewModel.numberOfStatsToDisplay(in: section)
-//    }
-//
-//    /* cellForRowAt
-//     *
-//     * notes: cell handles data & layout via viewModel
-//     */
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "StatsTableViewCell", for: indexPath) as! StatsTableViewCell
-//
-//        /* load cell details */
-//        cell.current_stat = self.viewModel.loadStatDetails(id: indexPath.row)
-//        cell.setBorder(color: self.statsTableView.backgroundColor!.cgColor)
-//
-//        /* set model */
-//        cell.setModel(viewModel: self.viewModel)
-//
-//        return cell
-//    }
-//
-//}
 

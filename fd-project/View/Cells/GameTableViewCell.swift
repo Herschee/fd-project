@@ -100,10 +100,6 @@ class GameTableViewCell: UITableViewCell {
 
     }
     
-    /* setModel: viewModel
-     * configures view label's from viewModel data source
-     */
-    
     /* setType: adjust cell view / attributes depending on game_state
      *
      * notes: handles pointing triangle for current games; show/hide respective labels

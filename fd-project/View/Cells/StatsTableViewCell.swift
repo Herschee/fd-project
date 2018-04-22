@@ -22,6 +22,7 @@ class StatsTableViewCell: UITableViewCell {
     
     static var Identifier = "StatsTableViewCell"
     
+    /* viewModel map to StatsTableViewCell via statModel */
     var statModel: Stat? {
         didSet {
             guard let statModel = statModel else { return }

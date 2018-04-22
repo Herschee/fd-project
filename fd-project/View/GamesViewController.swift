@@ -20,8 +20,6 @@ class GamesViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
     
-    let cellSpacingHeight: CGFloat = 15
-
     
     // - MARK: Init
     init(dataService: DataService, viewModel: GamesViewModel) {
@@ -48,16 +46,11 @@ class GamesViewController: UIViewController {
         super.viewDidLoad()
         
         view.accessibilityIdentifier = "gamesView"
-
-        /* data source & delegate */
-        //self.gamesTableView.dataSource = self
         
         /* rx bind to data source */
         self.bindToDataSource()
         
         gamesTableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameTableViewCell")
-        
-        
     }
     
     /* bindToDataSource: data source binding via rxSwift
@@ -74,31 +67,4 @@ class GamesViewController: UIViewController {
     }
 
 }
-
-/* GamesTableView Data Source */
-//extension GamesViewController: UITableViewDataSource {
-//
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return self.viewModel.numberOfGamesToDisplay(in: section)
-//    }
-//
-//    /* cellForRowAt
-//     *
-//     * notes: cell handles data & layout via model
-//     */
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "GameTableViewCell", for: indexPath) as! GameTableViewCell
-//
-//        /* load cell details */
-//        cell.current_game = self.viewModel.loadGameDetails(id: indexPath.row)
-//        cell.setBorder(color: self.gamesTableView.backgroundColor!)
-//
-//        /* set model */
-//        cell.setModel()
-//
-//        return cell
-//    }
-//
-//}
 

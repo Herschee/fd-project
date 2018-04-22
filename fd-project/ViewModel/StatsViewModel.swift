@@ -42,25 +42,6 @@ class StatsViewModel: NSObject {
         completion()
     }
     
-    /* numberOfStatsToDisplay:
-     * params: section: Int
-     * returns: number of stats
-     * notes:
-     */
-    func numberOfStatsToDisplay(in section: Int) -> Int {
-        return stats?.count ?? 0
-    }
-    
-    /* loadStatDetails: aquires single stat details by id
-     * params: id: Int
-     * returns: GameState of queried game id
-     * notes:
-     */
-    func loadStatDetails(id: Int) -> Stat {
-        current_stat = dataService.loadStatsForPlayer(id: id+1)
-        return current_stat
-    }
-    
     /* begin cell viewModel reference methods */
     func getLeftTopText() -> String {
         return self.current_stat.player! + " - " + self.current_stat.player_team!

@@ -38,14 +38,6 @@ public struct GameState: Decodable {
 
 }
 
-final class GameModel {
-    let name: String
-
-    init(name: String) {
-        self.name = name
-    }
-}
-
 extension CGFloat {
     static func random() -> CGFloat {
         return CGFloat(arc4random()) / CGFloat(UInt32.max)
