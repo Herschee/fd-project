@@ -41,7 +41,7 @@ class GamesViewModel: NSObject {
         log.debug("GamesViewModel: getGames()")
         
         dataService.loadData()
-        games = dataService.game_states.map { self.dataService.loadDetailsForGame(game_id: $0.game_id) }
+        games = dataService.game_states.map { self.dataService.loadDetailsForGame(game_id: $0.game_id)! }
         
         log.debug("GamesViewModel: getGames() completion games: \(games.count)")
         completion()

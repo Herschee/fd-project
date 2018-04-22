@@ -34,11 +34,15 @@ class DataService: NSObject {
      * returns: populated GameState struct
      * notes:
      */
-    func loadDetailsForGame(game_id: Int) -> GameState {
+    func loadDetailsForGame(game_id: Int) -> GameState? {
         
         log.debug("loadDetailsForGame: for id - \(game_id)")
         
         var game_state = game_states.filter { $0.game_id == game_id }.first
+        if (game_state == nil) {
+            return nil
+        }
+        
         /* check if respective foreign keys exist */
         if let game = games.filter ({ $0.id == game_state?.game_id }).first
         {
@@ -74,11 +78,14 @@ class DataService: NSObject {
      * returns: populated Stat struct
      * notes:
      */
-    func loadStatsForPlayer(id: Int) -> Stat {
+    func loadStatsForPlayer(id: Int) -> Stat? {
         
         log.debug("loadStatsForPlayer: id - \(id)")
         
         var stat = stats.filter { $0.id == id }.first
+        if (stat == nil) {
+            return nil
+        }
         
         /* check if respective foreign keys exist */
         if let player = players.filter ({ $0.id == stat?.player_id }).first {

@@ -10,6 +10,13 @@
 		80505E41773D5DDD5AA31FE5 /* Pods_fd_projectUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 450677AAD1D5D070F868003F /* Pods_fd_projectUITests.framework */; };
 		9AF448A1067D04F8451CEA06 /* Pods_fd_projectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C212D98139FB7F49A006AF53 /* Pods_fd_projectTests.framework */; };
 		A8B22F84A43F87C87B274743 /* Pods_fd_project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F1F070D6FA3EC43DB3F7096 /* Pods_fd_project.framework */; };
+		BA231AB1208D018600E9EF2E /* emptyGames.json in Resources */ = {isa = PBXBuildFile; fileRef = BA231AAC208D018600E9EF2E /* emptyGames.json */; };
+		BA231AB2208D018600E9EF2E /* emptyGameStates.json in Resources */ = {isa = PBXBuildFile; fileRef = BA231AAD208D018600E9EF2E /* emptyGameStates.json */; };
+		BA231AB3208D018600E9EF2E /* emptyStats.json in Resources */ = {isa = PBXBuildFile; fileRef = BA231AAE208D018600E9EF2E /* emptyStats.json */; };
+		BA231AB4208D018600E9EF2E /* emptyTeams.json in Resources */ = {isa = PBXBuildFile; fileRef = BA231AAF208D018600E9EF2E /* emptyTeams.json */; };
+		BA231AB5208D018600E9EF2E /* emptyPlayers.json in Resources */ = {isa = PBXBuildFile; fileRef = BA231AB0208D018600E9EF2E /* emptyPlayers.json */; };
+		BA231AB7208D048200E9EF2E /* incompleteGameStates.json in Resources */ = {isa = PBXBuildFile; fileRef = BA231AB6208D048000E9EF2E /* incompleteGameStates.json */; };
+		BA231AB9208D08A300E9EF2E /* incompleteStat.json in Resources */ = {isa = PBXBuildFile; fileRef = BA231AB8208D08A200E9EF2E /* incompleteStat.json */; };
 		BAB3A2632086BE970038BE2F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB3A2622086BE970038BE2F /* AppDelegate.swift */; };
 		BAB3A26B2086BE970038BE2F /* fd_project.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BAB3A2692086BE970038BE2F /* fd_project.xcdatamodeld */; };
 		BAB3A26D2086BEA80038BE2F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BAB3A26C2086BEA80038BE2F /* Assets.xcassets */; };
@@ -61,6 +68,13 @@
 		6157877B700B3DF02FAFDBB0 /* Pods-fd-projectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fd-projectTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-fd-projectTests/Pods-fd-projectTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A218D0DF28B6ABEB9EBE4E08 /* Pods-fd-project.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fd-project.debug.xcconfig"; path = "Pods/Target Support Files/Pods-fd-project/Pods-fd-project.debug.xcconfig"; sourceTree = "<group>"; };
 		B9201E4FFA8DF90B0B52615D /* Pods-fd-projectUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fd-projectUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-fd-projectUITests/Pods-fd-projectUITests.release.xcconfig"; sourceTree = "<group>"; };
+		BA231AAC208D018600E9EF2E /* emptyGames.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = emptyGames.json; path = "fd-project/Data/emptyGames.json"; sourceTree = SOURCE_ROOT; };
+		BA231AAD208D018600E9EF2E /* emptyGameStates.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = emptyGameStates.json; path = "fd-project/Data/emptyGameStates.json"; sourceTree = SOURCE_ROOT; };
+		BA231AAE208D018600E9EF2E /* emptyStats.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = emptyStats.json; path = "fd-project/Data/emptyStats.json"; sourceTree = SOURCE_ROOT; };
+		BA231AAF208D018600E9EF2E /* emptyTeams.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = emptyTeams.json; path = "fd-project/Data/emptyTeams.json"; sourceTree = SOURCE_ROOT; };
+		BA231AB0208D018600E9EF2E /* emptyPlayers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = emptyPlayers.json; path = "fd-project/Data/emptyPlayers.json"; sourceTree = SOURCE_ROOT; };
+		BA231AB6208D048000E9EF2E /* incompleteGameStates.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = incompleteGameStates.json; path = "fd-project/Data/incompleteGameStates.json"; sourceTree = SOURCE_ROOT; };
+		BA231AB8208D08A200E9EF2E /* incompleteStat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = incompleteStat.json; path = "fd-project/Data/incompleteStat.json"; sourceTree = SOURCE_ROOT; };
 		BAB3A25F2086BE970038BE2F /* fd-project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "fd-project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAB3A2622086BE970038BE2F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BAB3A26A2086BE970038BE2F /* fd_project.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = fd_project.xcdatamodel; sourceTree = "<group>"; };
@@ -148,6 +162,20 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		BA231AAB208D017900E9EF2E /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				BA231AAC208D018600E9EF2E /* emptyGames.json */,
+				BA231AAD208D018600E9EF2E /* emptyGameStates.json */,
+				BA231AB0208D018600E9EF2E /* emptyPlayers.json */,
+				BA231AAE208D018600E9EF2E /* emptyStats.json */,
+				BA231AAF208D018600E9EF2E /* emptyTeams.json */,
+				BA231AB8208D08A200E9EF2E /* incompleteStat.json */,
+				BA231AB6208D048000E9EF2E /* incompleteGameStates.json */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		BA3D83DA2087EB1500748318 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -226,6 +254,7 @@
 		BAB3A2792086BEA90038BE2F /* fd-projectTests */ = {
 			isa = PBXGroup;
 			children = (
+				BA231AAB208D017900E9EF2E /* Data */,
 				BAB3A27A2086BEA90038BE2F /* fd_projectTests.swift */,
 				BAB3A27C2086BEA90038BE2F /* Info.plist */,
 			);
@@ -381,6 +410,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA231AB4208D018600E9EF2E /* emptyTeams.json in Resources */,
+				BA231AB3208D018600E9EF2E /* emptyStats.json in Resources */,
+				BA231AB1208D018600E9EF2E /* emptyGames.json in Resources */,
+				BA231AB9208D08A300E9EF2E /* incompleteStat.json in Resources */,
+				BA231AB7208D048200E9EF2E /* incompleteGameStates.json in Resources */,
+				BA231AB2208D018600E9EF2E /* emptyGameStates.json in Resources */,
+				BA231AB5208D018600E9EF2E /* emptyPlayers.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

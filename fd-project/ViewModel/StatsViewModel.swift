@@ -43,7 +43,7 @@ class StatsViewModel: NSObject {
         log.debug("StatsViewModel: getStats()")
 
         dataService.loadData()
-        stats = dataService.stats.map { self.dataService.loadStatsForPlayer(id: $0.id) }
+        stats = dataService.stats.map { self.dataService.loadStatsForPlayer(id: $0.id)! }
 
         log.debug("StatsViewModel: getStats() completion stats: \(stats.count)")
         completion()
