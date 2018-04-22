@@ -295,7 +295,7 @@
          "away_team_score": 20,
          "broadcast": "TNT",
          "quarter": 2,
-         "time_left_in_quarter": "1:00",
+         "time_left_in_quarter": "",
          "game_status": "IN_PROGRESS"
       },
       {
