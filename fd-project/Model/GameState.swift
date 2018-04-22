@@ -28,13 +28,13 @@ public struct GameState: Decodable {
     public var home_team_score: Int? = 0
     public var away_team_score: Int? = 0
     public var quarter: Int? = 0
-    public var time_left_in_quarter: String? = ""
+    public var time_left_in_quarter: String? = "n/a"
     /* forein */
-    public var game_start: String? = ""
-    public var home_team: String? = ""
-    public var home_team_record: String? = ""
-    public var away_team: String? = ""
-    public var away_team_record: String? = ""
+    public var game_start: String? = "n/a"
+    public var home_team: String? = "n/a"
+    public var home_team_record: String? = "n/a"
+    public var away_team: String? = "n/a"
+    public var away_team_record: String? = "n/a"
 
 }
 

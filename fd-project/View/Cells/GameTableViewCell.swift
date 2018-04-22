@@ -83,6 +83,7 @@ class GameTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     
+        /* additional layer adjustments (rounded look) */
         self.backgroundColor = UIColor.white
         self.layer.borderColor = UIColor.black.cgColor
         self.layer.borderWidth = 1

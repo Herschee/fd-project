@@ -29,7 +29,7 @@ public struct Stat: Decodable {
     public var nerd: Float
     
     /* foreign */
-    public var player: String? = ""
-    public var player_team: String? = ""
+    public var player: String? = "n/a"
+    public var player_team: String? = "n/a"
 
 }

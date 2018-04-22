@@ -35,18 +35,31 @@ class DataService: NSObject {
     func loadDetailsForGame(game_id: Int) -> GameState {
         
         var game_state = game_states.filter { $0.game_id == game_id }.first
-        let game = games.filter { $0.id == game_state?.game_id }.first
+        /* check if respective foreign keys exist */
+        if let game = games.filter ({ $0.id == game_state?.game_id }).first
+        {
+            
+            /* foreign */
+            if let home_team = teams.filter ({ $0.id == game.home_team_id }).first?.name {
+                game_state?.home_team = home_team
+            } else { game_state?.home_team = "n/a" }
+            if let home_team_record = teams.filter ({ $0.id == game.home_team_id }).first?.record {
+                game_state?.home_team_record = home_team_record
+            } else { game_state?.home_team_record = "n/a" }
+            if let away_team = teams.filter ({ $0.id == game.away_team_id }).first?.name {
+                game_state?.away_team = away_team
+            } else { game_state?.away_team = "n/a" }
+            if let away_team_record = teams.filter ({ $0.id == game.away_team_id }).first?.record {
+                game_state?.away_team_record = away_team_record
+            } else { game_state?.away_team_record = "n/a" }
         
-        /* foreign */
-        let home_team = teams.filter { $0.id == game?.home_team_id }.first?.name
-        let home_team_record = teams.filter { $0.id == game?.home_team_id }.first?.record
-        let away_team = teams.filter { $0.id == game?.away_team_id }.first?.name
-        let away_team_record = teams.filter { $0.id == game?.away_team_id }.first?.record
-        
-        game_state?.home_team = home_team!
-        game_state?.home_team_record = home_team_record!
-        game_state?.away_team = away_team!
-        game_state?.away_team_record = away_team_record!
+        } else {
+            // can't find respective game information
+            game_state?.home_team = "n/a"
+            game_state?.home_team_record = "n/a"
+            game_state?.away_team = "n/a"
+            game_state?.away_team_record = "n/a"
+        }
 
         return game_state!
     }
@@ -59,12 +72,25 @@ class DataService: NSObject {
     func loadStatsForPlayer(id: Int) -> Stat {
         
         var stat = stats.filter { $0.id == id }.first
-        let player = players.filter { $0.id == stat?.player_id }.first
-        let team = teams.filter { $0.id == player?.team_id }.first?.abbrev
         
-        /* foreign */
-        stat?.player = player!.name
-        stat?.player_team = team!
+        /* check if respective foreign keys exist */
+        if let player = players.filter ({ $0.id == stat?.player_id }).first {
+            
+            /* foreign */
+            if let team = teams.filter ({ $0.id == player.team_id }).first?.abbrev {
+                stat?.player_team = team
+            } else { stat?.player_team = "n/a" }
+            
+            if let player = stat?.player {
+                stat?.player = player
+            } else { stat?.player = "n/a" }
+            
+        } else {
+            // can't find respective player information
+            
+            stat?.player = "n/a"
+            stat?.player_team = "n/a"
+        }
         
         return stat!
     }
