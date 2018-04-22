@@ -15,8 +15,19 @@ class StatsViewModel: NSObject {
     // - MARK: Variables
     var dataService = DataService()
     
-    var stats: [Stat]?
+    var stats: [Stat]!
+    let stats_rx: Variable<[Stat]> = Variable<[Stat]>([])
+    
     var current_stat: Stat!
+    
+    /* init */
+    override init() {
+        super.init()
+        
+        getStats {
+            self.stats_rx.value = self.stats
+        }
+    }
     
     /* getStats: aquires stats from data source to store locally for reference
      * params: none
@@ -26,8 +37,8 @@ class StatsViewModel: NSObject {
     func getStats(completion: @escaping () -> Void) {
         
         dataService.loadData()
-        stats = dataService.stats
-        
+        stats = dataService.stats.map { self.dataService.loadStatsForPlayer(id: $0.id) }
+
         completion()
     }
     

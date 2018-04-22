@@ -15,20 +15,26 @@ class GamesViewModel: NSObject {
     // - MARK: Variables
     var dataService = DataService()
 
-    var games: [Game]?
+    var games: [GameState]!
+    let games_rx: Variable<[GameState]> = Variable<[GameState]>([])
     
-    init() {
-        getGames()
+    /* init */
+    override init() {
+        super.init()
+        
+        getGames {
+            self.games_rx.value = self.games
+        }
     }
     
     /* getGames: aquires games from datasource
      * params: none
      * returns: none
-     * notes: populates datasource data locally for reference
+     * notes: populates datasource data locally for reference; ideally would need async completion
      */
     func getGames(completion: @escaping () -> Void) {
         dataService.loadData()
-        games = dataService.games
+        games = dataService.game_states.map { self.dataService.loadDetailsForGame(game_id: $0.game_id) }
         
         completion()
     }

@@ -27,6 +27,49 @@ class GameTableViewCell: UITableViewCell {
     
     public var current_game: GameState!
     
+    static var Identifier = "GameTableViewCell"
+
+    /* viewModel map to GameTableViewCell via gameModel */
+    var gameModel: GameState? {
+        didSet {
+            guard let gameModel = gameModel else { return }
+            
+            self.current_game = gameModel
+            
+            self.leftTeamLabel?.text = gameModel.away_team
+            self.rightTeamLabel?.text = gameModel.home_team
+            
+            if (gameModel.game_status == "IN_PROGRESS") {
+                self.leftScoreLabel?.text = gameModel.away_team_score!.description
+                self.rightScoreLabel?.text = gameModel.home_team_score!.description
+                
+                self.quarterLabel?.text = gameModel.getQuarterFormatted()
+                self.timeLabel?.text = gameModel.time_left_in_quarter
+                self.providerLabel?.text = gameModel.broadcast
+                
+                self.gameCenterView.backgroundColor = gameModel.getGameStateColor()
+                
+                setType(type: .current)
+            } else if (gameModel.game_status == "SCHEDULED") {
+                self.timeLabel?.text = gameModel.game_start
+                self.providerLabel?.text = gameModel.broadcast
+                
+                self.leftTeamRecordLabel?.text = gameModel.away_team_record
+                self.rightTeamRecordLabel?.text = gameModel.home_team_record
+                
+                setType(type: .scheduled)
+            } else {
+                self.leftScoreLabel?.text = gameModel.away_team_score!.description
+                self.rightScoreLabel?.text = gameModel.home_team_score!.description
+                
+                self.stateLabel?.text = gameModel.game_status
+                self.gameCenterView.backgroundColor = gameModel.getGameStateColor()
+                
+                setType(type: .final)
+            }
+        }
+    }
+    
     public enum type {
         case current
         case final
@@ -60,39 +103,6 @@ class GameTableViewCell: UITableViewCell {
     /* setModel: viewModel
      * configures view label's from viewModel data source
      */
-    func setModel() {
-        self.leftTeamLabel?.text = current_game.away_team
-        self.rightTeamLabel?.text = current_game.home_team
-        
-        if (current_game.game_status == "IN_PROGRESS") {
-            self.leftScoreLabel?.text = current_game.away_team_score!.description
-            self.rightScoreLabel?.text = current_game.home_team_score!.description
-            
-            self.quarterLabel?.text = current_game.getQuarterFormatted()
-            self.timeLabel?.text = current_game.time_left_in_quarter
-            self.providerLabel?.text = current_game.broadcast
-            
-            self.gameCenterView.backgroundColor = current_game.getGameStateColor()
-            
-            setType(type: .current)
-        } else if (current_game.game_status == "SCHEDULED") {
-            self.timeLabel?.text = current_game.game_start
-            self.providerLabel?.text = current_game.broadcast
-            
-            self.leftTeamRecordLabel?.text = current_game.away_team_record
-            self.rightTeamRecordLabel?.text = current_game.home_team_record
-            
-            setType(type: .scheduled)
-        } else {
-            self.leftScoreLabel?.text = current_game.away_team_score!.description
-            self.rightScoreLabel?.text = current_game.home_team_score!.description
-            
-            self.stateLabel?.text = current_game.game_status
-            self.gameCenterView.backgroundColor = current_game.getGameStateColor()
-            
-            setType(type: .final)
-        }
-    }
     
     /* setType: adjust cell view / attributes depending on game_state
      *
@@ -101,23 +111,8 @@ class GameTableViewCell: UITableViewCell {
     func setType(type: type) {
         switch type {
         case .current:
-            /* remove any previous; as they don't get deinit */
-            self.viewWithTag(1)?.removeFromSuperview()
-
-            /* set triangle subview depending on scores */
-            if (current_game.away_team_score! > current_game.home_team_score!) {
-                triangle = TriangleView(frame: CGRect(x: gameCenterView.frame.minX-16, y: gameCenterView.frame.midY-8, width: 16, height: 16))
-                triangle.transform = CGAffineTransform(rotationAngle: 3*CGFloat.pi/2)
-            } else {
-                triangle = TriangleView(frame: CGRect(x: gameCenterView.frame.maxX, y: gameCenterView.frame.midY-8, width: 16, height: 16))
-                triangle.transform = CGAffineTransform(rotationAngle: CGFloat.pi/2)
-            }
-            /* triangle color inheritance */
-            triangle.fillColor = self.gameCenterView.backgroundColor
-            triangle.backgroundColor = self.backgroundColor
-            triangle.tag = 1
             
-            self.addSubview(triangle)
+            self.addPointTriangle()
             
             break
         case .final:
@@ -125,6 +120,8 @@ class GameTableViewCell: UITableViewCell {
             self.timeLabel?.isHidden = true
             self.providerLabel?.isHidden = true
             self.stateLabel?.isHidden = false
+            
+            self.addPointTriangle()
             
             break
         case .scheduled:
@@ -134,6 +131,30 @@ class GameTableViewCell: UITableViewCell {
             break
         default: break
         }
+    }
+    
+    /* addPointTriangle: adds triangle view that points to winning team
+     *
+     * notes: 
+     */
+    func addPointTriangle() {
+        /* remove any previous; as they don't get deinit */
+        self.viewWithTag(1)?.removeFromSuperview()
+        
+        /* set triangle subview depending on scores */
+        if (current_game.away_team_score! > current_game.home_team_score!) {
+            triangle = TriangleView(frame: CGRect(x: gameCenterView.frame.minX-16, y: gameCenterView.frame.midY-8, width: 16, height: 16))
+            triangle.transform = CGAffineTransform(rotationAngle: 3*CGFloat.pi/2)
+        } else {
+            triangle = TriangleView(frame: CGRect(x: gameCenterView.frame.maxX, y: gameCenterView.frame.midY-8, width: 16, height: 16))
+            triangle.transform = CGAffineTransform(rotationAngle: CGFloat.pi/2)
+        }
+        /* triangle color inheritance */
+        triangle.fillColor = self.gameCenterView.backgroundColor
+        triangle.backgroundColor = self.backgroundColor
+        triangle.tag = 1
+        
+        self.addSubview(triangle)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

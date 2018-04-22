@@ -25,6 +25,8 @@ class DataService: NSObject {
     public var players: [Player]  = []
     public var game_states: [GameState] = []
     
+    public var game_states_rx: Variable<[GameState]> = Variable<[GameState]>([])
+    
     /* loadDetailsForGame for game_id
      * params: game_id (Int)
      * returns: populated GameState struct
